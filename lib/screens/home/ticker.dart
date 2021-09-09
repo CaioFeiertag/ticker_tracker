@@ -1,17 +1,16 @@
 class Ticker {
   final String code;
   final String name;
-  final double price;
-  final double appreciation;
+  double? price;
+  double? appreciation;
 
   Ticker(
-      {required this.code,
-      required this.name,
-      required this.price,
-      required this.appreciation});
+      {required this.code, required this.name, this.price, this.appreciation});
 }
 
-final tickers = [
-  new Ticker(code: "ITUB4", name: "Itaú", price: 30.00, appreciation: 1.30),
-  new Ticker(code: "ITUB3", name: "Itaú", price: 27.30, appreciation: -1.30),
+final mostValuableTickers = [
+  new Ticker(code: "PETR4.SAO", name: "Petróleo Brasileiro S.A. - Petrobras"),
+  new Ticker(code: "VALE3.SAO", name: "Vale S.A"),
+  new Ticker(code: "ITUB4.SAO", name: "Itaú Unibanco Holding S.A"),
+  new Ticker(code: "BBDC4.SAO", name: "Banco Bradesco S.A"),
 ];
