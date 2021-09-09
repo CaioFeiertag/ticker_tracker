@@ -29,7 +29,7 @@ class TickerInfo extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          this.ticker.code,
+                          this.ticker.code.split(".")[0],
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
