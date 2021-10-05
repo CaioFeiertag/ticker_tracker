@@ -37,21 +37,23 @@ class TickerInfo extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.normal))
                       ])),
-              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Text(
-                  price == null ? "" : "R\$ $price",
-                  style: TextStyle(fontSize: 24),
-                ),
-                Card(
-                    color: appreciationColor.shade100,
-                    child: Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text(
-                          appreciation == null ? "" : "$appreciation %",
-                          style: TextStyle(
-                              fontSize: 24, color: appreciationColor.shade700),
-                        )))
-              ])
+              if (price != null)
+                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  Text(
+                    "R\$ $price",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  Card(
+                      color: appreciationColor.shade100,
+                      child: Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text(
+                            appreciation == null ? "" : "$appreciation %",
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: appreciationColor.shade700),
+                          )))
+                ])
             ])));
   }
 }

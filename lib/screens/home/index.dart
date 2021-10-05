@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ticker_tracker/screens/home/components/ticker-info.dart';
 import 'package:ticker_tracker/screens/home/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticketApi.dart';
+import 'package:ticker_tracker/screens/ticker-details/index.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -100,7 +101,13 @@ class _HomeState extends State<Home> {
                   itemBuilder: (BuildContext context, int index) {
                     Ticker ticker = tickers[index];
 
-                    return TickerInfo(ticker: ticker);
+                    return GestureDetector(
+                        child: TickerInfo(ticker: ticker),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    TickerDetails(ticker: ticker))));
                   })),
           isSearching && _controller.text.length > 0
               ? Positioned(
@@ -115,7 +122,13 @@ class _HomeState extends State<Home> {
                         itemBuilder: (BuildContext context, int index) {
                           Ticker ticker = searchResults[index];
 
-                          return TickerInfo(ticker: ticker);
+                          return GestureDetector(
+                              child: TickerInfo(ticker: ticker),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          TickerDetails(ticker: ticker))));
                         }),
                   ))
               : SizedBox.shrink(),
