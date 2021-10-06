@@ -20,40 +20,41 @@ class TickerInfo extends StatelessWidget {
 
     return Card(
         child: Padding(
-            padding: EdgeInsets.all(20),
-            child:
-                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Container(
-                  width: MediaQuery.of(context).size.width - 150,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          this.ticker.code.split(".")[0],
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        Text(this.ticker.name,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.normal))
-                      ])),
-              if (price != null)
-                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  Text(
-                    "R\$ $price",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Card(
-                      color: appreciationColor.shade100,
-                      child: Padding(
-                          padding: EdgeInsets.all(6),
-                          child: Text(
-                            appreciation == null ? "" : "$appreciation %",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: appreciationColor.shade700),
-                          )))
-                ])
-            ])));
+            padding: EdgeInsets.all(8),
+            child: ListTile(
+                title: Text(
+                  this.ticker.code.split(".")[0],
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(this.ticker.name,
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+                trailing: Wrap(
+                    spacing: 12,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      if (price != null)
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "R\$ $price",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              Card(
+                                  color: appreciationColor.shade100,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(3),
+                                      child: Text(
+                                        appreciation == null
+                                            ? ""
+                                            : "$appreciation %",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: appreciationColor.shade700),
+                                      )))
+                            ]),
+                      Icon(Icons.arrow_forward_ios)
+                    ]))));
   }
 }
