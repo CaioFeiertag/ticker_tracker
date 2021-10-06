@@ -1,11 +1,14 @@
-class Ticker {
+import 'package:ticker_tracker/models/tickerDB.dart';
+
+class Ticker extends TickerDB {
   final String code;
   final String name;
   double? price;
   double? appreciation;
 
   Ticker(
-      {required this.code, required this.name, this.price, this.appreciation});
+      {required this.code, required this.name, this.price, this.appreciation})
+      : super(code: code, name: name);
 }
 
 final mostValuableTickers = [
