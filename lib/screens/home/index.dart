@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
                               })),
                     ]
                   : [
-                      Text("Meu portifólio"),
+                      Text("Meu portfólio"),
                       Spacer(),
                       IconButton(
                         icon: const Icon(Icons.search),

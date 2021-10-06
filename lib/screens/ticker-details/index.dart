@@ -64,8 +64,8 @@ class _TickerDetails extends State<TickerDetails> {
                       backgroundColor: BackgroundButtonColor(ticker.inPortfolio,
                           Theme.of(context).colorScheme.primary.value)),
                   child: Text(!ticker.inPortfolio
-                      ? "Adicionar ao portifólio"
-                      : "Remover do portifólio")))
+                      ? "Adicionar ao portfólio"
+                      : "Remover do portfólio"))),
         ]));
   }
 }
