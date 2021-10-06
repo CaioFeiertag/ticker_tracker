@@ -121,9 +121,12 @@ class _HomeState extends State<Home> {
                   itemBuilder: (BuildContext context, int index) {
                     Ticker ticker = tickers[index];
 
-                    return GestureDetector(
-                        child: TickerInfo(ticker: ticker),
-                        onHorizontalDragEnd: (dragEnd) => removeTicker(ticker),
+                    return InkWell(
+                        child: Dismissible(
+                            key: ValueKey<String>(ticker.code),
+                            child: TickerInfo(ticker: ticker),
+                            background: Container(color: Colors.red),
+                            onDismissed: (direction) => removeTicker(ticker)),
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
