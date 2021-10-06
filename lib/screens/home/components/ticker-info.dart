@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ticker_tracker/screens/home/ticker.dart';
+import 'package:ticker_tracker/models/ticker.dart';
 
 class TickerInfo extends StatelessWidget {
   TickerInfo({required this.ticker}) : super();
