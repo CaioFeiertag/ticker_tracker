@@ -21,7 +21,8 @@ Future<Ticker> fetchTicker(TickerDB ticker) async {
         code: ticker.code,
         name: ticker.name,
         price: price,
-        appreciation: appreciation);
+        appreciation: appreciation,
+        inPortfolio: true);
   } else {
     throw Exception("Failed to load ticker ${ticker.code}");
   }
@@ -38,7 +39,9 @@ Future<List<Ticker>> searchTicker(String keywords) async {
 
     bestMatches.forEach((tickerData) => {
           tickers.add(new Ticker(
-              code: tickerData["1. symbol"], name: tickerData["2. name"]))
+              code: tickerData["1. symbol"],
+              name: tickerData["2. name"],
+              inPortfolio: false))
         });
 
     return tickers;

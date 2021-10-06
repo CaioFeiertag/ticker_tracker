@@ -32,6 +32,18 @@ class _TickerDetails extends State<TickerDetails> {
         });
   }
 
+  void toggleTicker() {
+    if (ticker.inPortfolio) {
+      tickerProvider.deleteTicker(this.ticker);
+      ticker.inPortfolio = false;
+    } else {
+      tickerProvider.addTicker(this.ticker);
+      ticker.inPortfolio = true;
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +59,29 @@ class _TickerDetails extends State<TickerDetails> {
           Padding(
               padding: EdgeInsets.all(6),
               child: ElevatedButton(
-                  onPressed: () => {
-                        tickerProvider.addTicker(this.ticker),
-                        Navigator.pop(context)
-                      },
-                  child: Text("Adicionar ao portifólio")))
+                  onPressed: toggleTicker,
+                  style: ButtonStyle(
+                      backgroundColor: BackgroundButtonColor(ticker.inPortfolio,
+                          Theme.of(context).colorScheme.primary.value)),
+                  child: Text(!ticker.inPortfolio
+                      ? "Adicionar ao portifólio"
+                      : "Remover do portifólio")))
         ]));
+  }
+}
+
+class BackgroundButtonColor extends MaterialStateColor {
+  final bool inPortfolio;
+  final int defaultValue;
+
+  BackgroundButtonColor(this.inPortfolio, this.defaultValue)
+      : super(defaultValue);
+
+  @override
+  Color resolve(Set<MaterialState> states) {
+    if (!this.inPortfolio) {
+      return Color(defaultValue);
+    }
+    return Colors.red;
   }
 }
