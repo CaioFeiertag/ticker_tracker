@@ -59,7 +59,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
           title: Row(
-              // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: isSearching
                   ? [
@@ -127,17 +126,14 @@ class _HomeState extends State<Home> {
                             child: TickerInfo(ticker: ticker),
                             background: Container(color: Colors.red),
                             onDismissed: (direction) => removeTicker(ticker)),
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    TickerDetails(ticker: ticker))));
+                        onTap: () => Navigator.pushNamed(context, '/ticker',
+                            arguments: TickerDetailsArguments(ticker)));
                   })),
           isSearching && _controller.text.length > 0
               ? Positioned(
                   left: 0,
                   top: 0,
-                  child: new Container(
+                  child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: new BoxDecoration(color: Colors.white),
@@ -149,9 +145,8 @@ class _HomeState extends State<Home> {
                           return GestureDetector(
                               child: TickerInfo(ticker: ticker),
                               onTap: () => Navigator.of(context)
-                                  .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          TickerDetails(ticker: ticker)))
+                                  .pushNamed('/ticker',
+                                      arguments: TickerDetailsArguments(ticker))
                                   .then((_) => {
                                         this.isSearching = false,
                                         fetchTickers()

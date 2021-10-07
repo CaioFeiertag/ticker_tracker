@@ -5,31 +5,38 @@ import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker-details/components/ticker-chart.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 
-class TickerDetails extends StatefulWidget {
+class TickerDetailsArguments {
   final Ticker ticker;
 
-  TickerDetails({Key? key, required this.ticker}) : super(key: key);
+  TickerDetailsArguments(this.ticker);
+}
 
+class TickerDetails extends StatefulWidget {
   @override
-  _TickerDetails createState() => _TickerDetails(ticker: ticker);
+  _TickerDetails createState() => _TickerDetails();
 }
 
 class _TickerDetails extends State<TickerDetails> {
-  final Ticker ticker;
   late List<TickerTimeSerie> tickerTimeSeries = [];
   final tickerProvider = Provider.TickerProvider();
-
-  _TickerDetails({required this.ticker});
+  late TickerDetailsArguments args;
+  late Ticker ticker;
 
   @override
   void initState() {
     super.initState();
-
-    fetchTickerTimeSeries(ticker).then((response) => {
-          setState(() {
-            tickerTimeSeries = response;
-          })
-        });
+    Future.delayed(Duration.zero, () {
+      args =
+          ModalRoute.of(context)!.settings.arguments as TickerDetailsArguments;
+      setState(() {
+        ticker = args.ticker;
+      });
+      fetchTickerTimeSeries(ticker).then((response) => {
+            setState(() {
+              tickerTimeSeries = response;
+            })
+          });
+    });
   }
 
   void toggleTicker() {

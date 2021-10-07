@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ticker_tracker/screens/home/index.dart';
+import 'package:ticker_tracker/screens/ticker-details/index.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Gotham',
       ),
-      home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/ticker': (context) => TickerDetails(),
+      },
     );
   }
 }
