@@ -13,16 +13,12 @@ Future<Ticker> fetchTicker(TickerDB ticker) async {
       "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker.code}&apikey=$alphaVantageKey&datatype=json"));
 
   if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    final price = double.parse(data["Global Quote"]["05. price"]);
-    final appreciation = double.parse(data["Global Quote"]["09. change"]);
-
-    return new Ticker(
-        code: ticker.code,
-        name: ticker.name,
-        price: price,
-        appreciation: appreciation,
-        inPortfolio: true);
+    return new Ticker.fromJson(
+      code: ticker.code,
+      name: ticker.name,
+      inPortfolio: true,
+      json: response.body,
+    );
   } else {
     throw Exception("Failed to load ticker ${ticker.code}");
   }

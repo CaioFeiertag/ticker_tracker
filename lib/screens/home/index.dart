@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ticker_tracker/screens/home/components/ticker-info.dart';
 import 'package:ticker_tracker/models/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticket-api.dart';
-import 'package:ticker_tracker/screens/ticker-details/index.dart';
+import 'package:ticker_tracker/screens/ticker/index.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 
 class Home extends StatefulWidget {

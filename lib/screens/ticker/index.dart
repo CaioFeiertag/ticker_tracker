@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ticker_tracker/models/ticker-time-serie.dart';
 import 'package:ticker_tracker/models/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticket-api.dart';
-import 'package:ticker_tracker/screens/ticker-details/components/ticker-chart.dart';
+import 'package:ticker_tracker/screens/ticker-more-details/index.dart';
+import 'package:ticker_tracker/screens/ticker/components/ticker-chart.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 
 class TickerDetailsArguments {
@@ -65,14 +66,29 @@ class _TickerDetails extends State<TickerDetails> {
               child: SimpleTimeSeriesChart(seriesList: this.tickerTimeSeries)),
           Padding(
               padding: EdgeInsets.all(6),
-              child: ElevatedButton(
-                  onPressed: toggleTicker,
-                  style: ButtonStyle(
-                      backgroundColor: BackgroundButtonColor(ticker.inPortfolio,
-                          Theme.of(context).colorScheme.primary.value)),
-                  child: Text(!ticker.inPortfolio
-                      ? "Adicionar ao portfólio"
-                      : "Remover do portfólio"))),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: toggleTicker,
+                        style: ButtonStyle(
+                            backgroundColor: BackgroundButtonColor(
+                                ticker.inPortfolio,
+                                Theme.of(context).colorScheme.primary.value)),
+                        child: Text(!ticker.inPortfolio
+                            ? "Adicionar ao portfólio"
+                            : "Remover do portfólio")),
+                    ElevatedButton(
+                        onPressed: () => {
+                              Navigator.pushNamed(
+                                  context, '/ticker-more-details',
+                                  arguments: TickerMoreDetailsArguments(ticker))
+                            },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith(
+                                (states) => Colors.blue.shade500)),
+                        child: Text("Mais detalhes"))
+                  ])),
         ]));
   }
 }

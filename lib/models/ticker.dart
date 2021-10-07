@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ticker_tracker/models/tickerDB.dart';
 
 class Ticker extends TickerDB {
@@ -5,7 +7,13 @@ class Ticker extends TickerDB {
   final String name;
   bool inPortfolio;
   double? price;
+  double? openPrice;
   double? appreciation;
+  double? highestPrice;
+  double? volume;
+  String? lastTradingDay;
+  double? previousClosePrice;
+  double? changeAbsolute;
 
   Ticker(
       {required this.code,
@@ -14,6 +22,25 @@ class Ticker extends TickerDB {
       this.price,
       this.appreciation})
       : super(code: code, name: name);
+
+  Ticker.fromJson(
+      {required this.code,
+      required this.name,
+      required this.inPortfolio,
+      required String json})
+      : super(code: code, name: name) {
+    final data = jsonDecode(json);
+    this.price = double.parse(data["Global Quote"]["05. price"]);
+    this.appreciation =
+        double.parse(data["Global Quote"]["10. change percent"].split("%")[0]);
+    this.openPrice = double.parse(data["Global Quote"]["02. open"]);
+    this.highestPrice = double.parse(data["Global Quote"]["03. high"]);
+    this.volume = double.parse(data["Global Quote"]["06. volume"]);
+    this.lastTradingDay = data["Global Quote"]["07. latest trading day"];
+    this.previousClosePrice =
+        double.parse(data["Global Quote"]["08. previous close"]);
+    this.changeAbsolute = double.parse(data["Global Quote"]["09. change"]);
+  }
 }
 
 // final mostValuableTickers = [
