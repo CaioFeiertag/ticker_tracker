@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         '/ticker': (context) => TickerDetails(),
-        '/ticker-more-details': (context) => TickerMoreDetails(),
+        '/ticker/more-details': (context) => TickerMoreDetails(),
       },
     );
   }

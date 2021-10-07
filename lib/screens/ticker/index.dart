@@ -81,7 +81,7 @@ class _TickerDetails extends State<TickerDetails> {
                     ElevatedButton(
                         onPressed: () => {
                               Navigator.pushNamed(
-                                  context, '/ticker-more-details',
+                                  context, '/ticker/more-details',
                                   arguments: TickerMoreDetailsArguments(ticker))
                             },
                         style: ButtonStyle(
