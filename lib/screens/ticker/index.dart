@@ -7,7 +7,7 @@ import 'package:ticker_tracker/screens/ticker/components/ticker-chart.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 
 class TickerDetailsArguments {
-  final Ticker ticker;
+  Ticker ticker;
 
   TickerDetailsArguments(this.ticker);
 }
@@ -21,7 +21,7 @@ class _TickerDetails extends State<TickerDetails> {
   late List<TickerTimeSerie> tickerTimeSeries = [];
   final tickerProvider = Provider.TickerProvider();
   late TickerDetailsArguments args;
-  late Ticker ticker;
+  Ticker? ticker;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _TickerDetails extends State<TickerDetails> {
       setState(() {
         ticker = args.ticker;
       });
-      fetchTickerTimeSeries(ticker).then((response) => {
+      fetchTickerTimeSeries(args.ticker).then((response) => {
             setState(() {
               tickerTimeSeries = response;
             })
@@ -41,12 +41,12 @@ class _TickerDetails extends State<TickerDetails> {
   }
 
   void toggleTicker() {
-    if (ticker.inPortfolio) {
-      tickerProvider.deleteTicker(this.ticker);
-      ticker.inPortfolio = false;
+    if (ticker!.inPortfolio) {
+      tickerProvider.deleteTicker(this.ticker!);
+      ticker!.inPortfolio = false;
     } else {
-      tickerProvider.addTicker(this.ticker);
-      ticker.inPortfolio = true;
+      tickerProvider.addTicker(this.ticker!);
+      ticker!.inPortfolio = true;
     }
 
     setState(() {});
@@ -59,7 +59,7 @@ class _TickerDetails extends State<TickerDetails> {
             title: Row(
           // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(this.ticker.name)],
+          children: [Text(this.ticker?.name ?? '')],
         )),
         body: Column(children: [
           Expanded(
@@ -73,16 +73,17 @@ class _TickerDetails extends State<TickerDetails> {
                         onPressed: toggleTicker,
                         style: ButtonStyle(
                             backgroundColor: BackgroundButtonColor(
-                                ticker.inPortfolio,
+                                ticker?.inPortfolio ?? false,
                                 Theme.of(context).colorScheme.primary.value)),
-                        child: Text(!ticker.inPortfolio
+                        child: Text(!(ticker?.inPortfolio ?? false)
                             ? "Adicionar ao portfólio"
                             : "Remover do portfólio")),
                     ElevatedButton(
                         onPressed: () => {
                               Navigator.pushNamed(
                                   context, '/ticker-more-details',
-                                  arguments: TickerMoreDetailsArguments(ticker))
+                                  arguments:
+                                      TickerMoreDetailsArguments(ticker!))
                             },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateColor.resolveWith(

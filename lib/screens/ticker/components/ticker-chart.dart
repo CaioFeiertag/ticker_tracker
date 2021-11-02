@@ -21,6 +21,8 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (seriesList.length == 0) return Container();
+
     return new charts.TimeSeriesChart(
       seriesList,
       animate: animate,

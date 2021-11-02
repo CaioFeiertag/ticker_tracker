@@ -30,16 +30,18 @@ class Ticker extends TickerDB {
       required String json})
       : super(code: code, name: name) {
     final data = jsonDecode(json);
-    this.price = double.parse(data["Global Quote"]["05. price"]);
-    this.appreciation =
-        double.parse(data["Global Quote"]["10. change percent"].split("%")[0]);
-    this.openPrice = double.parse(data["Global Quote"]["02. open"]);
-    this.highestPrice = double.parse(data["Global Quote"]["03. high"]);
-    this.volume = double.parse(data["Global Quote"]["06. volume"]);
-    this.lastTradingDay = data["Global Quote"]["07. latest trading day"];
-    this.previousClosePrice =
-        double.parse(data["Global Quote"]["08. previous close"]);
-    this.changeAbsolute = double.parse(data["Global Quote"]["09. change"]);
+    if (data["Global Quote"] != null) {
+      this.price = double.parse(data["Global Quote"]["05. price"]);
+      this.appreciation = double.parse(
+          data["Global Quote"]["10. change percent"].split("%")[0]);
+      this.openPrice = double.parse(data["Global Quote"]["02. open"]);
+      this.highestPrice = double.parse(data["Global Quote"]["03. high"]);
+      this.volume = double.parse(data["Global Quote"]["06. volume"]);
+      this.lastTradingDay = data["Global Quote"]["07. latest trading day"];
+      this.previousClosePrice =
+          double.parse(data["Global Quote"]["08. previous close"]);
+      this.changeAbsolute = double.parse(data["Global Quote"]["09. change"]);
+    }
   }
 }
 

@@ -4,7 +4,7 @@ import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/components/display-value.dart';
 
 class TickerMoreDetailsArguments {
-  final Ticker ticker;
+  Ticker ticker;
 
   TickerMoreDetailsArguments(this.ticker);
 }
@@ -16,7 +16,7 @@ class TickerMoreDetails extends StatefulWidget {
 
 class _TickerMoreDetails extends State<TickerMoreDetails> {
   late TickerMoreDetailsArguments args;
-  late Ticker ticker;
+  Ticker? ticker;
   void initState() {
     super.initState();
 
@@ -29,7 +29,7 @@ class _TickerMoreDetails extends State<TickerMoreDetails> {
       });
 
       if (args.ticker.price == null) {
-        fetchTicker(ticker).then((response) => {
+        fetchTicker(args.ticker).then((response) => {
               setState(() {
                 ticker = response;
               })
@@ -42,7 +42,7 @@ class _TickerMoreDetails extends State<TickerMoreDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(ticker.name),
+          title: Text(ticker?.name ?? ''),
         ),
         body: Card(
             child: Column(children: [
@@ -51,18 +51,20 @@ class _TickerMoreDetails extends State<TickerMoreDetails> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DisplayValue("Valor Abertura", ticker.openPrice.toString()),
-                    DisplayValue("Valor Máximo", ticker.highestPrice.toString())
+                    DisplayValue(
+                        "Valor Abertura", (ticker?.openPrice ?? 0).toString()),
+                    DisplayValue(
+                        "Valor Máximo", (ticker?.highestPrice ?? 0).toString())
                   ])),
           Padding(
               padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DisplayValue(
-                        "Alteração absoluta", ticker.changeAbsolute.toString()),
+                    DisplayValue("Alteração absoluta",
+                        (ticker?.changeAbsolute ?? 0).toString()),
                     DisplayValue("Valor fechamento",
-                        ticker.previousClosePrice.toString())
+                        (ticker?.previousClosePrice ?? 0).toString())
                   ])),
         ])));
   }

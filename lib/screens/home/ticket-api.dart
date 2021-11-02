@@ -30,8 +30,8 @@ Future<List<Ticker>> searchTicker(String keywords) async {
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    final bestMatches = data["bestMatches"] as List;
     final List<Ticker> tickers = [];
+    final bestMatches = (data["bestMatches"] ?? []) as List;
 
     bestMatches.forEach((tickerData) => {
           tickers.add(new Ticker(
@@ -49,20 +49,23 @@ Future<List<Ticker>> searchTicker(String keywords) async {
 Future<List<TickerTimeSerie>> fetchTickerTimeSeries(TickerDB ticker) async {
   final response = await http.get(Uri.parse(
       "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${ticker.code}&apikey=$alphaVantageKey&datatype=json"));
-
+  print(response);
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    final timeSeries = data["Time Series (Daily)"] as Map;
     final List<TickerTimeSerie> tickers = [];
-
-    for (final date in timeSeries.keys) {
-      tickers.add(new TickerTimeSerie(
-          date: DateTime.parse(date),
-          price: double.parse(timeSeries[date]["4. close"])));
+    if (data["Time Series (Daily)"] != null) {
+      final timeSeries = data["Time Series (Daily)"] as Map;
+      for (final date in timeSeries.keys) {
+        tickers.add(new TickerTimeSerie(
+            date: DateTime.parse(date),
+            price: double.parse(timeSeries[date]["4. close"])));
+      }
+    } else {
+      throw Exception(response.body);
     }
 
     return tickers;
   } else {
-    throw Exception("Failed to search tickers");
+    throw Exception("Failed to load time series");
   }
 }

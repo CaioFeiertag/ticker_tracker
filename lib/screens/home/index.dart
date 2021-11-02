@@ -127,7 +127,8 @@ class _HomeState extends State<Home> {
                             background: Container(color: Colors.red),
                             onDismissed: (direction) => removeTicker(ticker)),
                         onTap: () => Navigator.pushNamed(context, '/ticker',
-                            arguments: TickerDetailsArguments(ticker)));
+                                arguments: TickerDetailsArguments(ticker))
+                            .then((_) => {fetchTickers()}));
                   })),
           isSearching && _controller.text.length > 0
               ? Positioned(
