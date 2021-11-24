@@ -6,6 +6,7 @@ import 'package:ticker_tracker/models/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker/index.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
+import 'package:ticker_tracker/shared/components/bottom-navigator.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -57,6 +58,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: BottomNavigator("/"),
         appBar: AppBar(
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
