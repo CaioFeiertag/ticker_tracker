@@ -5,6 +5,7 @@ import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/index.dart';
 import 'package:ticker_tracker/screens/ticker/components/ticker-chart.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TickerDetailsArguments {
   Ticker ticker;
@@ -76,8 +77,9 @@ class _TickerDetails extends State<TickerDetails> {
                                 ticker?.inPortfolio ?? false,
                                 Theme.of(context).colorScheme.primary.value)),
                         child: Text(!(ticker?.inPortfolio ?? false)
-                            ? "Adicionar ao portfólio"
-                            : "Remover do portfólio")),
+                            ? AppLocalizations.of(context)!.addToPortfolio
+                            : AppLocalizations.of(context)!
+                                .removeFromPortfolio)),
                     ElevatedButton(
                         onPressed: () => {
                               Navigator.pushNamed(
@@ -88,7 +90,7 @@ class _TickerDetails extends State<TickerDetails> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateColor.resolveWith(
                                 (states) => Colors.blue.shade500)),
-                        child: Text("Mais detalhes"))
+                        child: Text(AppLocalizations.of(context)!.showMore))
                   ])),
         ]));
   }

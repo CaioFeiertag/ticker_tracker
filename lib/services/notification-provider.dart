@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -52,5 +54,17 @@ class NotificationProvider {
         RepeatInterval.everyMinute,
         platformChannelSpecifics,
         androidAllowWhileIdle: true);
+  }
+
+  sendLowBatteryNotification(double batteryLevel) {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('default', 'Default',
+            channelDescription:
+                'Grant this app the ability to show notifications');
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    flutterLocalNotificationsPlugin.show(1, 'Nível de bateria baixo',
+        "Nível atual: $batteryLevel", platformChannelSpecifics);
   }
 }

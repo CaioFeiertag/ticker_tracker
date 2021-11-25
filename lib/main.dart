@@ -1,14 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ticker_tracker/screens/home/index.dart';
 import 'package:ticker_tracker/screens/news/index.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/index.dart';
 import 'package:ticker_tracker/screens/ticker/index.dart';
 import 'package:ticker_tracker/services/notification-provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+
   runApp(MyApp());
 }
 
@@ -25,6 +30,7 @@ class _MyApp extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(Duration.zero, () {
       notificationProvider
           .initialize(context)
@@ -42,6 +48,16 @@ class _MyApp extends State<MyApp> {
         fontFamily: 'Gotham',
       ),
       initialRoute: '/',
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ''),
+        Locale('pt', ''),
+      ],
       routes: {
         '/': (context) => Home(),
         '/ticker': (context) => TickerDetails(),

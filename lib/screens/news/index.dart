@@ -6,6 +6,7 @@ import 'package:ticker_tracker/screens/news/components/twitter-view/tweet-view.d
 import 'package:ticker_tracker/screens/news/twitter-api.dart';
 import 'package:ticker_tracker/shared/components/bottom-navigator.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class News extends StatefulWidget {
   @override
@@ -41,7 +42,7 @@ class _News extends State<News> {
     return Scaffold(
         bottomNavigationBar: BottomNavigator("/news"),
         appBar: AppBar(
-          title: Text("Notícias"),
+          title: Text(AppLocalizations.of(context)!.news),
         ),
         body: Column(children: [
           Row(children: [
@@ -49,7 +50,7 @@ class _News extends State<News> {
                 child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                hintText: 'Buscar',
+                hintText: AppLocalizations.of(context)!.searchText,
                 border: OutlineInputBorder(),
               ),
               onChanged: (String query) {
@@ -75,7 +76,7 @@ class _News extends State<News> {
                 icon: const Icon(Icons.mic),
                 color:
                     isListening ? Colors.red : Theme.of(context).primaryColor,
-                tooltip: 'Pesquise atráves de aúdio',
+                tooltip: AppLocalizations.of(context)!.voiceSearch,
                 onPressed: () {
                   setState(() {
                     isListening = true;

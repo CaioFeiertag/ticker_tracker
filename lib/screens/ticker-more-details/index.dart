@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ticker_tracker/models/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/components/display-value.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TickerMoreDetailsArguments {
   Ticker ticker;
@@ -51,19 +52,19 @@ class _TickerMoreDetails extends State<TickerMoreDetails> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DisplayValue(
-                        "Valor Abertura", (ticker?.openPrice ?? 0).toString()),
-                    DisplayValue(
-                        "Valor Máximo", (ticker?.highestPrice ?? 0).toString())
+                    DisplayValue(AppLocalizations.of(context)!.openingValue,
+                        (ticker?.openPrice ?? 0).toString()),
+                    DisplayValue(AppLocalizations.of(context)!.maxValue,
+                        (ticker?.highestPrice ?? 0).toString())
                   ])),
           Padding(
               padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DisplayValue("Alteração absoluta",
+                    DisplayValue(AppLocalizations.of(context)!.absAlteration,
                         (ticker?.changeAbsolute ?? 0).toString()),
-                    DisplayValue("Valor fechamento",
+                    DisplayValue(AppLocalizations.of(context)!.closeValue,
                         (ticker?.previousClosePrice ?? 0).toString())
                   ])),
         ])));
