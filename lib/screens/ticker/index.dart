@@ -6,6 +6,7 @@ import 'package:ticker_tracker/screens/ticker-more-details/index.dart';
 import 'package:ticker_tracker/screens/ticker/components/ticker-chart.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ticker_tracker/shared/components/bottom-navigator.dart';
 
 class TickerDetailsArguments {
   Ticker ticker;
@@ -60,6 +61,7 @@ class _TickerDetails extends State<TickerDetails> {
             title: Wrap(
           children: [Text(this.ticker?.name ?? '')],
         )),
+        bottomNavigationBar: BottomNavigator("/ticker"),
         body: Column(children: [
           Expanded(
               child: SimpleTimeSeriesChart(seriesList: this.tickerTimeSeries)),

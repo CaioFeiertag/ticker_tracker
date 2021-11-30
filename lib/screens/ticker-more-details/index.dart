@@ -3,6 +3,7 @@ import 'package:ticker_tracker/models/ticker.dart';
 import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/components/display-value.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ticker_tracker/shared/components/bottom-navigator.dart';
 
 class TickerMoreDetailsArguments {
   Ticker ticker;
@@ -45,6 +46,7 @@ class _TickerMoreDetails extends State<TickerMoreDetails> {
         appBar: AppBar(
           title: Text(ticker?.name ?? ''),
         ),
+        bottomNavigationBar: BottomNavigator("/ticker-details"),
         body: Card(
             child: Column(children: [
           Padding(
