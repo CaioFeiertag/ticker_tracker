@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ticker_tracker/screens/home/index.dart';
 import 'package:ticker_tracker/screens/news/index.dart';
 import 'package:ticker_tracker/screens/ticker-more-details/index.dart';
@@ -21,15 +22,53 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   NotificationProvider notificationProvider = new NotificationProvider();
+  EventChannel eventChannel = EventChannel('samples.flutter.io/charging');
+
+  bool isCharging = false;
+
+  void _onEvent(event) {
+    if (event == 'charging' && !isCharging) {
+      isCharging = true;
+      Fluttertoast.showToast(
+          msg:
+              "O seu dispositivo está carregando, agora você pode curtir o App sem se preocupar!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.teal,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else if (event == 'discharging' && isCharging) {
+      isCharging = false;
+      Fluttertoast.showToast(
+          msg: "Oops! O seu dispositivo foi desconectado do carregador.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red[300],
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    eventChannel.receiveBroadcastStream().listen(_onEvent);
     Future.delayed(Duration.zero, () {
       notificationProvider
-          .initialize(context)
+          .initialize()
           .then((_) => {notificationProvider.sendPeriodicallyNotification()});
     });
+    Future.delayed(
+        Duration.zero,
+        () => showDialog(
+            context: context,
+            builder: (_) => new AlertDialog(
+                  title: new Text('Carregando!'),
+                  content: new Text(
+                      "O seu dispositivo está carregando, agora você pode curtir o App sem se preocupar!"),
+                )));
   }
 
   // This widget is the root of your application.
