@@ -10,8 +10,7 @@ final twitterApi = TwitterApi(
 );
 
 Future<TweetSearch> searchTweets(String? searchText) async {
-  String q =
-      searchText != null ? searchText : 'b3 OR bolsa de valores OR economia';
+  String q = searchText != null ? searchText : 'b3 OR bolsa de valores';
   return twitterApi.tweetSearchService
       .searchTweets(q: q, count: 15, lang: 'pt', resultType: 'popular');
 }

@@ -45,66 +45,69 @@ class _News extends State<News> {
           title: Text(AppLocalizations.of(context)!.news),
         ),
         body: Column(children: [
-          Row(children: [
-            Expanded(
-                child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.searchText,
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (String query) {
-                if (_debounce?.isActive ?? false) {
-                  _debounce!.cancel();
-                }
-                _debounce = Timer(const Duration(milliseconds: 500), () {
-                  searchTweets(query).then((tweets) {
-                    setState(() {
-                      this.tweets = tweets;
+          Padding(
+              padding: EdgeInsets.all(8),
+              child: Row(children: [
+                Expanded(
+                    child: TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.searchText,
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (String query) {
+                    if (_debounce?.isActive ?? false) {
+                      _debounce!.cancel();
+                    }
+                    _debounce = Timer(const Duration(milliseconds: 500), () {
+                      searchTweets(query).then((tweets) {
+                        setState(() {
+                          this.tweets = tweets;
+                        });
+                      });
                     });
-                  });
-                });
-              },
-              onSubmitted: (value) {
-                setState(() {
-                  // Searc
-                });
-              },
-            )),
-            if (isSpeechEnabled)
-              IconButton(
-                icon: const Icon(Icons.mic),
-                color:
-                    isListening ? Colors.red : Theme.of(context).primaryColor,
-                tooltip: AppLocalizations.of(context)!.voiceSearch,
-                onPressed: () {
-                  setState(() {
-                    isListening = true;
-                    _speechToText.listen(
-                      onResult: (result) {
-                        print(result.toJson());
-                        _controller.text = result.recognizedWords;
-                        if (result.finalResult) {
-                          searchTweets(_controller.text).then((tweets) {
-                            setState(() {
-                              this.tweets = tweets;
-                              this.isListening = false;
-                            });
-                          });
-                        }
-                      },
-                      listenFor: Duration(seconds: 5),
-                      partialResults: true,
-                      onSoundLevelChange: (level) {
-                        print("Sound level: $level");
-                      },
-                      onDevice: true,
-                      cancelOnError: true,
-                    );
-                  });
-                },
-              ),
-          ]),
+                  },
+                  onSubmitted: (value) {
+                    setState(() {
+                      // Searc
+                    });
+                  },
+                )),
+                if (isSpeechEnabled)
+                  IconButton(
+                    icon: const Icon(Icons.mic),
+                    color: isListening
+                        ? Colors.red
+                        : Theme.of(context).primaryColor,
+                    tooltip: AppLocalizations.of(context)!.voiceSearch,
+                    onPressed: () {
+                      setState(() {
+                        isListening = true;
+                        _speechToText.listen(
+                          onResult: (result) {
+                            print(result.toJson());
+                            _controller.text = result.recognizedWords;
+                            if (result.finalResult) {
+                              searchTweets(_controller.text).then((tweets) {
+                                setState(() {
+                                  this.tweets = tweets;
+                                  this.isListening = false;
+                                });
+                              });
+                            }
+                          },
+                          listenFor: Duration(seconds: 5),
+                          partialResults: true,
+                          onSoundLevelChange: (level) {
+                            print("Sound level: $level");
+                          },
+                          onDevice: true,
+                          cancelOnError: true,
+                        );
+                      });
+                    },
+                  ),
+              ])),
           Expanded(
               child: Container(
                   padding: EdgeInsets.all(10),
