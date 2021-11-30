@@ -12,5 +12,6 @@
     "folderText": "Portfolio",
     "news": "News",
     "voiceSearch": "Press to search using audio",
-    "returnText": "Back"
+    "returnText": "Back",
+    "emptyMsg" : "To start using your portfolio, add a ticker through the search button above."
 }

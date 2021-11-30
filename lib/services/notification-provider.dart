@@ -16,8 +16,6 @@ class NotificationProvider {
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (str) {
-      print(str);
-      print('oi');
       showDialog(
           context: context,
           builder: (_) => new AlertDialog(
