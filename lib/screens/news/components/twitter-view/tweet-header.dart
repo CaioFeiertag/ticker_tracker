@@ -41,22 +41,24 @@ class TweetHeader extends StatelessWidget {
             backgroundImage: NetworkImage(this.avatar),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(right: 5.0),
-          child: Text(
-            this.userName,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 5.0),
+            child: Text(
+              this.userName,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        Text(
-          '@$userId · $timeAgo',
-          style: TextStyle(
-            color: Colors.grey,
+          Text(
+            '@$userId · $timeAgo',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
           ),
-        ),
+        ]),
       ],
     );
   }

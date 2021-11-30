@@ -7,6 +7,7 @@ import 'package:ticker_tracker/screens/home/ticket-api.dart';
 import 'package:ticker_tracker/screens/ticker/index.dart';
 import 'package:ticker_tracker/services/Ticker-provider.dart' as Provider;
 import 'package:ticker_tracker/shared/components/bottom-navigator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class _HomeState extends State<Home> {
                   ? [
                       IconButton(
                         icon: const Icon(Icons.arrow_back),
-                        tooltip: 'Voltar',
+                        tooltip: AppLocalizations.of(context)!.returnText,
                         onPressed: () {
                           setState(() {
                             isSearching = false;
@@ -79,7 +80,8 @@ class _HomeState extends State<Home> {
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 hintStyle: TextStyle(color: Colors.white70),
-                                hintText: 'Buscar',
+                                hintText:
+                                    AppLocalizations.of(context)!.searchText,
                                 border: InputBorder.none,
                               ),
                               onSubmitted: (value) {
@@ -102,11 +104,11 @@ class _HomeState extends State<Home> {
                               })),
                     ]
                   : [
-                      Text("Meu portfólio"),
+                      Text(AppLocalizations.of(context)!.title),
                       Spacer(),
                       IconButton(
                         icon: const Icon(Icons.search),
-                        tooltip: 'Pressione para começar a pesquisar',
+                        tooltip: AppLocalizations.of(context)!.tooltipLupa,
                         onPressed: () {
                           setState(() {
                             isSearching = true;

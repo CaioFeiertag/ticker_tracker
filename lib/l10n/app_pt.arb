@@ -1,0 +1,16 @@
+{
+    "title": "Meu Portfólio",
+    "tooltipLupa": "Pressione para começar a pesquisar",
+    "searchText": "Buscar",
+    "addToPortfolio": "Adicionar ao portfólio",
+    "removeFromPortfolio": "Remover do portfólio",
+    "showMore": "Mais informações",
+    "openingValue": "Abertura",
+    "maxValue": "Máximo",
+    "absAlteration": "Alteração absoluta",
+    "closeValue": "Fechamento",
+    "folderText": "Portfólio",
+    "news": "Notícias",
+    "voiceSearch": "Pressione para pesquisar usando áudio",
+    "returnText": "Voltar"
+}
