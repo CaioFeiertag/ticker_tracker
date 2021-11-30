@@ -12,5 +12,6 @@
     "folderText": "Portfólio",
     "news": "Notícias",
     "voiceSearch": "Pressione para pesquisar usando áudio",
-    "returnText": "Voltar"
+    "returnText": "Voltar",
+    "emptyMsg" : "Para iniciar seu portfólio, adicione um ticker através do botão de pesquisa acima."
 }

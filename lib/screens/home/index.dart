@@ -158,7 +158,20 @@ class _HomeState extends State<Home> {
                                       }));
                         }),
                   ))
-              : SizedBox.shrink(),
+              : tickers.length == 0
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          child: Wrap(children: [
+                            Text(AppLocalizations.of(context)!.emptyMsg,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontFamily: "Gotham"))
+                          ]),
+                        ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
         ]));
   }
 }

@@ -57,9 +57,7 @@ class _TickerDetails extends State<TickerDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Row(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+            title: Wrap(
           children: [Text(this.ticker?.name ?? '')],
         )),
         body: Column(children: [
